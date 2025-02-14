@@ -1,11 +1,7 @@
-import './App.css'
-import ProductList from './pages/ProductList'
+import Routes from './routes';
+
 function App() {
-  return (
-    <>
-      <ProductList/>
-    </>
-  )
+  return <Routes />;
 }
 
-export default App
+export default App;

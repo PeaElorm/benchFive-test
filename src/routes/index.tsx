@@ -1,13 +1,28 @@
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "../App";
+import {RouterProvider, createBrowserRouter } from "react-router-dom";
+import ProductListPage from '../pages/ProductList';
+import ProductFormPage from '../pages/ProductForm';
+import RootLayout from "../layouts/RootLayout";
 
-const rootElement = document.getElementById("root") as HTMLElement;
+const router = createBrowserRouter([
+  {
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/",
+        element: <ProductListPage />,
+      },
+      {
+        path: "/new-product",
+        element: <ProductFormPage />,
+      },
+      {
+        path: "/edit-product/:sku",
+        element: <ProductFormPage />,
+      }
+    ],
+  },
+]);
 
-ReactDOM.createRoot(rootElement).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-    </Routes>
-  </BrowserRouter>
-);
+const Routes = () => <RouterProvider router={router} />;
+
+export default Routes;
