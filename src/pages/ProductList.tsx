@@ -66,16 +66,30 @@ const getProductAttribute = (product: Product) => {
           )}
           <button
             onClick={handleMassDelete}
-            className="bg-red-500 text-white px-4 py-2 rounded"
-            disabled={selectedSkus.length === 0}
-          >
-            MASS DELETE
-          </button>
+            className={`text-white px-4 py-2 rounded ${
+              products.length === 0 || selectedSkus.length === 0
+                ? 'bg-gray-400 cursor-not-allowed'
+                : 'bg-red-500'
+            }`}
+            disabled={products.length === 0 || selectedSkus.length === 0}
+            title={
+              products.length === 0 
+                ? "No products available to delete" 
+                : "Select one or more products to enable mass delete"
+            }
+           >
+      MASS DELETE
+    </button>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {products.length === 0 ? (
+        <div className="flex justify-center items-center h-full">
+          <p className="text-2xl font-bold">No Products available yet. Click on the Add button above to add a product and get started.</p>
+        </div>
+      ) :(
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {currentProducts.map(product => (
           <div
             key={product.sku}
@@ -103,6 +117,8 @@ const getProductAttribute = (product: Product) => {
           </div>
         ))}
       </div>
+      )
+      }
       </div>
 
       <Pagination
